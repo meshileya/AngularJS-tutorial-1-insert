@@ -1,0 +1,41 @@
+<html ng-app = "myapp">
+<title>Our First Tutorial</title>
+<head>
+<script type="text/javascript" src="js/angular.min.js"></script>
+</head>
+ <body ng-controller = "emp">
+  <table style = "border-spacing: 20px 20px; width:100%; color:#000;">
+                <tr><td>Name </td><td><input type="text" ng-model="justname"></td></tr>
+                <tr><td>Address </td><td><input type="text" step = "any" ng-model="justaddress"></td></tr>
+                <tr><td>Phone Number </td><td><input type="number" ng-model="justphonenumber"></td></tr>
+                        
+            </table>
+	 <div style="text-align:center; width:100%;">
+
+            <table style ="width:100%;">
+                  <col style="width:30%">
+                  <col style="width:30%">
+                 
+              <tr>
+              <td><input type="button" value = "Save" id ="save" ng-click="insertdata()" style="width:100%;"/></td>
+              
+            </table>
+        </div>
+			
+			
+<script>
+  var app = angular.module('myapp', [])
+  app.controller('emp', function($scope, $http){
+  $scope.insertdata=function(){
+ $http.post("insert.php", {'yourname':$scope.justname, 'youraddress':$scope.justaddress, 'yourphonenumber':$scope.justphonenumber})
+  .success(function(data, status, headers, config) {
+        console.log("Voila, our Data was successfully inserted");
+		})
+      .error(function(data, status, headers, config) {
+        $scope.errorMsg = 'Unable to submit form';
+      })
+  }});</script>
+</body>
+
+
+</html>
